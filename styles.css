@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&display=swap');
+
+* {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 400;
+    color: #272727;
+    margin: 0;
+    padding: 0;
+}
+
+.title-section h1 {
+    font-weight: 700;
+    font-size: 4rem;
+}
+
+.title-section h3 {
+    font-size: 1.5rem;
+}
+
+.title-section {
+    margin: auto auto;
+}
