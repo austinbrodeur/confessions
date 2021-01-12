@@ -79,7 +79,7 @@ button:hover {
     font-weight: 600;
 }
 
-.tooltip .tooltiptext p {
+.tooltip .tooltiptext p, .tooltip .tooltiptext i {
     color: #fff;
 }
 
