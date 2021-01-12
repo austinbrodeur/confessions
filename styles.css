@@ -9,8 +9,12 @@
 }
 
 .title-section h1 {
-    font-weight: 700;
+    font-weight: 600;
     font-size: 4rem;
+}
+
+svg {
+    fill: #272727
 }
 
 .title-section h3 {
@@ -23,26 +27,42 @@
     text-align: center;
 }
 
+.title-row {
+    display: inline-flex;
+}
+
 form, .button-section {
     text-align: center;
 }
 
 textarea {
-    border: 2px solid rgb(133, 133, 133);
+    border: 2px solid #646464;
     border-radius: 4px;
     padding: 12px 8px;
     font-size: 1rem;
-    margin: 5rem auto 3rem auto;
+    margin: 5rem 0 3rem 0;
     width: 35rem;
     height: 10rem;
     resize: none;
 }
 
 button {
+    transition: ease 0.3s;
     font-size: 1rem;
     width: 8rem;
     height: 4rem;
     cursor: pointer;
     border: none;
     border-radius: 3px;
+}
+
+button:hover {
+    background-color: #b6b6b6;
+}
+
+::selection {
+    background: #b6b6b6;
+  }
+::-moz-selection {
+background: #b6b6b6;
 }
