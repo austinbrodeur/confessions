@@ -13,12 +13,12 @@
     font-size: 4rem;
 }
 
-svg {
-    fill: #272727
+.title-section h3 {
+    font-size: 1.8rem;
 }
 
-.title-section h3 {
-    font-size: 1.7rem;
+svg {
+    fill: #272727
 }
 
 .title-section {
@@ -58,6 +58,33 @@ button {
 
 button:hover {
     background-color: #b6b6b6;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    position: absolute;
+    background-color: #272727;
+    color: #fff;
+    border-radius: 3px;
+    padding: 10px;
+    text-align: left;
+    width: 15rem;
+
+    z-index: 1;
+}
+
+.tooltip .tooltiptext h4 {
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.tooltip .tooltiptext p {
+    color: #fff;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
 }
 
 ::selection {
