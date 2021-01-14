@@ -9,14 +9,87 @@
 }
 
 .title-section h1 {
-    font-weight: 700;
+    font-weight: 600;
     font-size: 4rem;
 }
 
 .title-section h3 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+}
+
+svg {
+    fill: #272727
 }
 
 .title-section {
-    margin: auto auto;
+    width: 50%;
+    margin: 12.5rem auto 0 auto;
+    text-align: center;
+}
+
+.title-row {
+    display: inline-flex;
+}
+
+form, .button-section {
+    text-align: center;
+}
+
+textarea {
+    border: 2px solid #646464;
+    border-radius: 4px;
+    padding: 12px 8px;
+    font-size: 1rem;
+    margin: 5rem 0 3rem 0;
+    width: 35rem;
+    height: 10rem;
+    resize: none;
+}
+
+button {
+    transition: ease 0.3s;
+    font-size: 1rem;
+    width: 8rem;
+    height: 4rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+}
+
+button:hover {
+    background-color: #b6b6b6;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    position: absolute;
+    background-color: #272727;
+    color: #fff;
+    border-radius: 3px;
+    padding: 10px;
+    text-align: left;
+    width: 15rem;
+
+    z-index: 1;
+}
+
+.tooltip .tooltiptext h4 {
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.tooltip .tooltiptext p, .tooltip .tooltiptext i {
+    color: #fff;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+::selection {
+    background: #b6b6b6;
+  }
+::-moz-selection {
+background: #b6b6b6;
 }
