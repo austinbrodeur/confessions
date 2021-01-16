@@ -1,8 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
-app.use(bodyParser.json());
 const path = require('path');
+app.use(bodyParser.json());
+app.use(express.static(__dirname + '/public'));
 
 const db = require("./db");
 const collection = "confessions";
@@ -16,7 +17,6 @@ app.get("/getConfessions", (req, res) => {
         if (err)
             console.log(err);
         else {
-            console.log(documents)
             res.json(documents);
         }
     });
