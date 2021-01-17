@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confess Your Sins</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
 </head>
 <body>
     <div class="title-section">
@@ -18,16 +18,48 @@
         <h3>Secretly confess your sins.</h3>
     </div>
     <div class="form-section">
-        <form>
-            <textarea placeholder="Enter your confession"></textarea>
+        <form id="confessionForm">
+            <textarea id="confessionInput" placeholder="Enter your confession"></textarea>
         </form>
     </div>
     <div class="button-section">
-        <button>Confess</button>
+        <button type="submit" form="confessionForm">Confess</button>
     </div>
 </body>
 <footer>
 
 </footer>
-<script src="index.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(() => {
+        const form = $("#confessionForm");
+        const confessionInput = $("#confessionInput");
+        
+        const resetConfessionsInput = () => {
+            confessionInput.val('');
+        }
+
+        const getConfession = () => {
+            fetch("/getConfessions", {method : "get"}).then((response) => {
+                return response.json();
+            }).then((data) => {
+                console.log(data);
+            })
+        }
+
+        form.submit((e) => {
+            e.preventDefault();
+            fetch("/", {
+                method : "post",
+                body : JSON.stringify({confession : confessionInput.val()}),
+                headers : {
+                    "Content-Type" : "application/json; charset=utf-8"
+                }
+            }).then((response) => {
+                return response.json();
+            })
+            resetConfessionsInput();
+        })
+    });
+</script>
 </html>
