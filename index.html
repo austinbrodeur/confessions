@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confess Your Sins</title>
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="public/styles/style.css">
 </head>
 <body>
     <div class="title-section">
@@ -12,31 +12,51 @@
             <h1>Forgive Me</h1>
             <div class="tooltip">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2.033 16.01c.564-1.789 1.632-3.932 1.821-4.474.273-.787-.211-1.136-1.74.209l-.34-.64c1.744-1.897 5.335-2.326 4.113.613-.763 1.835-1.309 3.074-1.621 4.03-.455 1.393.694.828 1.819-.211.153.25.203.331.356.619-2.498 2.378-5.271 2.588-4.408-.146zm4.742-8.169c-.532.453-1.32.443-1.761-.022-.441-.465-.367-1.208.164-1.661.532-.453 1.32-.442 1.761.022.439.466.367 1.209-.164 1.661z"/></svg>
-                <span class="tooltiptext"><h4>What is this?</h4><p>This website is based off of a fictional website from a horror/puzzle video game <a href="https://welcometothegame.fandom.com/wiki/Forgive_Me"><i>Welcome to the Game</i></a>. You are able to enter a single confession that will be anonymously added to a collection of other confessions. After you’ve confessed, you can view other confessions.</p></span>
+                <span class="tooltiptext"><h4>What is this?</h4>You are able to enter a single confession that will be anonymously added to a collection of other confessions. After you’ve confessed, you can view other confessions.</p></span>
             </div>
         </div>
         <h3>Secretly confess your sins.</h3>
     </div>
     <div class="form-section">
         <form id="confessionForm">
-            <textarea id="confessionInput" placeholder="Enter your confession"></textarea>
+            <textarea maxlength="200" id="confessionInput" placeholder="Enter your confession"></textarea>
         </form>
     </div>
     <div class="button-section">
-        <button type="submit" form="confessionForm">Confess</button>
+        <button id="confessButton" type="submit" form="confessionForm">Confess</button>
+        <button id="nextButton" type="next">Next Confession</button>
+        <h3 id="confessMessage">You have confessed.</h3>
     </div>
 </body>
-<footer>
 
+<footer>
 </footer>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(() => {
         const form = $("#confessionForm");
         const confessionInput = $("#confessionInput");
+        const confessButton = $("#confessButton");
+        const nextButton = $("#nextButton");
+        const confessMessage = $("#confessMessage");
         
         const resetConfessionsInput = () => {
             confessionInput.val('');
+
+        }
+
+        const sleep = (ms) => {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function changeState() {
+            resetConfessionsInput();
+            confessButton.css("display", "none");
+            confessMessage.css("display", "inline");
+            await sleep(5000);
+            confessMessage.css("display", "none");
+            nextButton.css("display", "inline");
         }
 
         const getConfession = () => {
@@ -47,7 +67,7 @@
             })
         }
 
-        form.submit((e) => {
+        form.submit((e) => { // tied to the confession form
             e.preventDefault();
             fetch("/", {
                 method : "post",
@@ -58,7 +78,7 @@
             }).then((response) => {
                 return response.json();
             })
-            resetConfessionsInput();
+            changeState();
         })
     });
 </script>

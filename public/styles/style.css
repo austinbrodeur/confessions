@@ -46,11 +46,19 @@ textarea {
     resize: none;
 }
 
+#nextButton {
+    display: none;
+}
+
+#confessMessage {
+    display: none;
+}
+
 button {
     transition: ease 0.3s;
     font-size: 1rem;
-    width: 8rem;
-    height: 4rem;
+    width: 10rem;
+    height: 5rem;
     cursor: pointer;
     border: none;
     border-radius: 3px;
