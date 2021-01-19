@@ -12,25 +12,13 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.get("/getConfessions", (req, res) => {
-    db.getDB().collection(collection).find({}).toArray((err, documents) => {
-        if (err)
-            console.log(err);
-        else {
-            res.json(documents);
-        }
-    });
-});
 
-app.put('/:id', (req, res) => { // for updating confessions, will not likely need
-    const confessionID = req.params.id;
-    const userInput = req.body;
-
-    db.getDB().collection(collection).findOneAndUpdate({_id : db.getPrimaryKey(confessionID)}, {$set : {confession : userInput.confession}}, {returnOriginal : false}, (err, result) => {
+app.get("/getRandConfession", (req, res) => {
+    db.getDB().collection(collection).aggregate([{$sample : {size : 1}}]).toArray((err, documents) => {
         if (err)
             console.log(err);
         else
-            res.json(result);
+            res.json(documents);
     });
 });
 
@@ -41,17 +29,6 @@ app.post('/', (req, res) => {
             console.log(err);
         else
             res.json({result : result, document : result.ops[0]});
-    });
-});
-
-app.delete('/:id', (req, res) => {
-    const confessionID = req.params.id;
-
-    db.getDB().collection(collection).findOneAndDelete({_id : db.getPrimaryKey(confessionID)}, (err, result) => {
-        if (err)
-            console.log(err);
-        else
-            res.json(result);
     });
 });
 
