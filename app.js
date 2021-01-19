@@ -16,9 +16,26 @@ app.get("/getConfessions", (req, res) => {
     db.getDB().collection(collection).find({}).toArray((err, documents) => {
         if (err)
             console.log(err);
-        else {
+        else
             res.json(documents);
-        }
+    });
+});
+
+app.get("/getConfession", (req, res) => {
+    db.getDB().collection(collection).findOne({}, (err, result) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(result);
+    })
+})
+
+app.get("/getRandConfession", (req, res) => {
+    db.getDB().collection(collection).aggregate([{$sample : {size : 1}}]).toArray((err, documents) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(documents);
     });
 });
 

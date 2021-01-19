@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confess Your Sins</title>
-    <link rel="stylesheet" type="text/css" href="public/styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
 </head>
 <body>
     <div class="title-section">
@@ -43,7 +43,11 @@
         
         const resetConfessionsInput = () => {
             confessionInput.val('');
+            confessionInput.prop("readonly", true);
+        }
 
+        const displayConfession = (data) => {
+            confessionInput.attr("placeholder", data[0].confession);
         }
 
         const sleep = (ms) => {
@@ -57,17 +61,19 @@
             await sleep(5000);
             confessMessage.css("display", "none");
             nextButton.css("display", "inline");
+            getConfession();
         }
 
         const getConfession = () => {
-            fetch("/getConfessions", {method : "get"}).then((response) => {
+            fetch("/getRandConfession", {method : "get"}).then((response) => {
                 return response.json();
             }).then((data) => {
-                console.log(data);
-            })
+                console.log(data[0]);
+                displayConfession(data);
+            });
         }
 
-        form.submit((e) => { // tied to the confession form
+        form.submit((e) => {
             e.preventDefault();
             fetch("/", {
                 method : "post",
@@ -79,7 +85,11 @@
                 return response.json();
             })
             changeState();
-        })
+        });
+
+        nextButton.click(function() {
+            getConfession();
+        });
     });
 </script>
 </html>
