@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="styles/style.css">
 </head>
 <body>
+    <audio src="public/sounds/male-choir.wav" id="audio"></audio>
     <div class="title-section">
         <div class="title-row">
             <h1>Forgive Me</h1>
@@ -75,6 +76,7 @@
 
         form.submit((e) => {
             e.preventDefault();
+
             fetch("/", {
                 method : "post",
                 body : JSON.stringify({confession : confessionInput.val()}),
