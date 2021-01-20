@@ -14,7 +14,7 @@
     <meta name="theme-color" content="#282828">
 </head>
 <body>
-    <audio src="public/sounds/male-choir.wav" id="audio"></audio>
+    <audio src="public/sounds/male-choir.wav" id="sound"></audio>
     <div class="title-section">
         <div class="title-row">
             <h1>Forgive Me</h1>
@@ -37,68 +37,73 @@
     </div>
 </body>
 
-<footer>
-</footer>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(() => {
-        const form = $("#confessionForm");
-        const confessionInput = $("#confessionInput");
-        const confessButton = $("#confessButton");
-        const nextButton = $("#nextButton");
-        const confessMessage = $("#confessMessage");
-        
-        const resetConfessionsInput = () => {
-            confessionInput.val('');
-            confessionInput.prop("readonly", true);
-        }
+    const form = $("#confessionForm");
+    const confessionInput = $("#confessionInput");
+    const confessButton = $("#confessButton");
+    const nextButton = $("#nextButton");
+    const confessMessage = $("#confessMessage");
+    const confessSound = document.getElementById('sound');
+    
+    const resetConfessionsInput = () => {
+        confessionInput.val('');
+        confessionInput.prop("readonly", true);
+    }
 
-        const displayConfession = (data) => {
-            confessionInput.attr("placeholder", data[0].confession);
-        }
+    const displayConfession = (data) => {
+        confessionInput.attr("placeholder", data[0].confession);
+    }
 
-        const sleep = (ms) => {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
+    const sleep = (ms) => {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
-        async function changeState() {
-            resetConfessionsInput();
-            confessButton.css("display", "none");
-            confessMessage.css("display", "inline");
-            await sleep(5000);
-            confessMessage.css("display", "none");
-            nextButton.css("display", "inline");
-            getConfession();
-        }
+    const playSound = () => {
+        confessSound.play();
+    }
 
-        const getConfession = () => {
-            fetch("/getRandConfession", {method : "get"}).then((response) => {
-                return response.json();
-            }).then((data) => {
-                console.log(data[0]);
-                displayConfession(data);
-            });
-        }
+    async function changeState() {
+        resetConfessionsInput();
+        playSound();
+        confessButton.fadeOut();
+        await sleep(500);
+        confessMessage.fadeIn();
+        await sleep(3000);
+        confessMessage.fadeOut();
+        await sleep(500);
+        nextButton.fadeIn();
+        getConfession();
+    }
 
-        form.submit((e) => {
-            e.preventDefault();
-
-            fetch("/", {
-                method : "post",
-                body : JSON.stringify({confession : confessionInput.val()}),
-                headers : {
-                    "Content-Type" : "application/json; charset=utf-8"
-                }
-            }).then((response) => {
-                return response.json();
-            })
-            changeState();
+    const getConfession = () => {
+        fetch("/getRandConfession", {method : "get"}).then((response) => {
+            return response.json();
+        }).then((data) => {
+            console.log(data[0]);
+            displayConfession(data);
         });
+    }
 
-        nextButton.click(function() {
-            getConfession();
-        });
+    form.submit((e) => {
+        e.preventDefault();
+
+        fetch("/", {
+            method : "post",
+            body : JSON.stringify({confession : confessionInput.val()}),
+            headers : {
+                "Content-Type" : "application/json; charset=utf-8"
+            }
+        }).then((response) => {
+            return response.json();
+        })
+        changeState();
     });
+
+    nextButton.click(function() {
+        getConfession();
+    });
+});
 </script>
 </html>
