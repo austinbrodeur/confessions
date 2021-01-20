@@ -8,6 +8,10 @@
     padding: 0;
 }
 
+body {
+    height: 100%;
+}
+
 .title-section h1 {
     font-weight: 600;
     font-size: 4rem;
@@ -18,7 +22,7 @@
 }
 
 svg {
-    fill: #272727
+    fill: #272727;
 }
 
 .title-section {
