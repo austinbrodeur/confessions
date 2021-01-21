@@ -99,6 +99,27 @@ button:hover {
     visibility: visible;
 }
 
+@media screen and (max-width: 800px) {
+    textarea {
+        width: 22.5rem;
+        height: 10rem;
+    }
+
+    .title-section h1 {
+        font-weight: 600;
+        font-size: 2.5rem;
+    }
+    
+    .title-section h3 {
+        font-size: 1.2rem;
+    }
+
+    button {
+        width: 10rem;
+        height: 4rem;
+    }
+}
+
 ::selection {
     background: #b6b6b6;
   }
