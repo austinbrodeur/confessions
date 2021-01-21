@@ -100,18 +100,30 @@ button:hover {
 }
 
 @media screen and (max-width: 800px) {
+
+    svg {
+        width: 12px;
+        height: 12px;
+    }
+
+    .title-section {
+        margin: 6rem auto 0 auto;
+        width: 80%;
+    }
+
     textarea {
-        width: 22.5rem;
+        font-size: 0.8rem;
+        width: 18rem;
         height: 10rem;
     }
 
     .title-section h1 {
         font-weight: 600;
-        font-size: 2.5rem;
+        font-size: 2.2rem;
     }
     
     .title-section h3 {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     button {
