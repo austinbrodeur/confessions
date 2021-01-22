@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname));
 
-cookie.set("id", crypto.SHA256((new Date()).toString()), { expires: 30});
+app.use(cookie.set("id", crypto.SHA256((new Date()).toString()), { expires: 30}));
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
