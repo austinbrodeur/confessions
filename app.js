@@ -1,15 +1,17 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cookie = require("js-cookie");
+const crypto = require("crypto-js");
 const app = express();
 const path = require('path');
 const db = require("./db");
-const cookie = require("./cookie");
 const collection = "confessions";
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname));
 
+cookie.set("id", crypto.SHA256((new Date()).toString()), { expires: 30});
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
