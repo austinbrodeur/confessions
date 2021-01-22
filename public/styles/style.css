@@ -59,6 +59,7 @@ textarea {
 }
 
 button {
+    background-color: #d6d6d6;
     transition: ease 0.3s;
     font-size: 1rem;
     width: 10rem;
@@ -74,14 +75,14 @@ button:hover {
 
 .tooltip .tooltiptext {
     visibility: hidden;
-    position: absolute;
+    width: 15rem;
     background-color: #272727;
     color: #fff;
     border-radius: 3px;
     padding: 10px;
     text-align: left;
-    width: 15rem;
 
+    position: absolute;
     z-index: 1;
 }
 
@@ -95,15 +96,15 @@ button:hover {
     color: #fff;
 }
 
-.tooltip:hover .tooltiptext {
+.tooltip:hover .tooltiptext, .tooltip:active .tooltiptext {
     visibility: visible;
 }
 
 @media screen and (max-width: 800px) {
 
     svg {
-        width: 12px;
-        height: 12px;
+        width: 18px;
+        height: 18px;
     }
 
     .title-section {
@@ -123,6 +124,17 @@ button:hover {
     }
     
     .title-section h3 {
+        font-size: 1rem;
+    }
+
+    .tooltip .tooltiptext {
+        left: 50%; 
+        top: 25%;
+        margin-left: -8rem;
+        font-size: 0.8rem;
+    }
+
+    .tooltip .tooltiptext h4 {
         font-size: 1rem;
     }
 
