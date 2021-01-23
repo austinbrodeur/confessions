@@ -1,21 +1,41 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const cookie = require("js-cookie");
+const cookieParser = require("cookie-parser");
 const crypto = require("crypto-js");
 const app = express();
-const path = require('path');
+const path = require("path");
 const db = require("./db");
+const { SHA256 } = require("crypto-js");
 const collection = "confessions";
 
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname));
 
-app.use(cookie.set("id", crypto.SHA256((new Date()).toString()), { expires: 30}));
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, "index.html"));
 });
+
+
+app.get("/setCookie", (req, res) => {
+    res.cookie("id", SHA256(req.ip).toString()), {
+        maxAge: 1000 * 60 * 60 * 24 * 30 // 1 month
+    };
+    res.redirect("/");
+});
+
+
+app.get("/getCookie", (req, res) => {
+    res.send(req.cookies.id);
+})
+
+
+app.get('/clearCookie', (req, res) => {
+    res.clearCookie("name")
+    res.redirect("/");
+})
 
 
 app.get("/getRandConfession", (req, res) => {
@@ -36,6 +56,7 @@ app.post('/', (req, res) => {
             res.json({result : result, document : result.ops[0]});
     });
 });
+
 
 db.connect((err) => {
     if (err) {
