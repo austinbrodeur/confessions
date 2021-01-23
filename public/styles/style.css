@@ -100,6 +100,28 @@ button:hover {
     visibility: visible;
 }
 
+footer {
+    height: 2rem;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+footer ul {
+    list-style: none;
+}
+
+footer ul li {
+    margin: 0 2rem 0rem 2rem;
+    display: inline;
+}
+
+footer ul li a {
+    text-decoration: none;
+}
+
 @media screen and (max-width: 800px) {
 
     svg {
@@ -108,7 +130,7 @@ button:hover {
     }
 
     .title-section {
-        margin: 6rem auto 0 auto;
+        margin: 4rem auto 0 auto;
         width: 80%;
     }
 
@@ -141,6 +163,10 @@ button:hover {
     button {
         width: 10rem;
         height: 4rem;
+    }
+
+    footer ul li a {
+        font-size: 0.8rem;
     }
 }
 
