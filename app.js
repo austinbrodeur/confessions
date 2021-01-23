@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 
 app.get("/setCookie", (req, res) => {
     res.cookie("id", SHA256(req.ip).toString()), {
-        maxAge: 1000 * 60 * 60 * 24 * 30 // 1 month
+        maxAge: 1000 * 60 * 60 * 24 * 30
     };
     res.redirect("/");
 });
