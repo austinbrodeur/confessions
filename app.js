@@ -13,29 +13,18 @@ app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname));
 
+/*
+app.use("/", (req, res) => {
+    console.log("setting cookie");
+    res.cookie("id", SHA256(req.ip).toString()), {
+        maxAge: 1000 * 60 * 60 * 24 * 30
+    };
+});
+*/
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "index.html"));
 });
-
-
-app.get("/setCookie", (req, res) => {
-    res.cookie("id", SHA256(req.ip).toString()), {
-        maxAge: 1000 * 60 * 60 * 24 * 30
-    };
-    res.redirect("/");
-});
-
-
-app.get("/getCookie", (req, res) => {
-    res.send(req.cookies.id);
-})
-
-
-app.get('/clearCookie', (req, res) => {
-    res.clearCookie("name")
-    res.redirect("/");
-})
 
 
 app.get("/getRandConfession", (req, res) => {
