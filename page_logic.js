@@ -1,4 +1,4 @@
-$(document).ready(() => {
+$(() => {
     const form = $("#confessionForm");
     const confessionInput = $("#confessionInput");
     const confessButton = $("#confessButton");
@@ -6,24 +6,29 @@ $(document).ready(() => {
     const confessMessage = $("#confessMessage");
     const confessSound = document.getElementById('sound');
     
+    
     const resetConfessionsInput = () => {
         confessionInput.val('');
         confessionInput.prop("readonly", true);
     }
 
+
     const displayConfession = (data) => {
         confessionInput.attr("placeholder", data[0].confession);
     }
+
 
     const sleep = (ms) => {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
+
     const playSound = () => {
         confessSound.play();
     }
 
-    async function changeState() {
+
+    const changeState = async () => {
         resetConfessionsInput();
         playSound();
         confessButton.fadeOut();
@@ -36,6 +41,15 @@ $(document).ready(() => {
         getConfession();
     }
 
+
+    const setState = () => {
+        resetConfessionsInput();
+        confessButton.hide();
+        nextButton.show();
+        getConfession();
+    }
+
+
     const getConfession = () => {
         fetch("/getRandConfession", {method : "get"}).then((response) => {
             return response.json();
@@ -44,7 +58,8 @@ $(document).ready(() => {
         });
     }
 
-    form.submit((e) => {
+    
+    form.on("submit", (e) => {
         e.preventDefault();
 
         fetch("/", {
@@ -62,7 +77,10 @@ $(document).ready(() => {
         changeState();
     });
 
-    nextButton.click(function() {
+
+    nextButton.on("click", function() {
         getConfession();
     });
+
+
 });

@@ -6,29 +6,42 @@ const app = express();
 const path = require("path");
 const db = require("./db");
 const { SHA256 } = require("crypto-js");
+const { param } = require("jquery");
 const collection = "confessions";
+
+const cookie = (req, res, next) => {
+    const dtNow = new Date();
+    console.log(`Setting cookie to hash of ${dtNow.toString()}`);
+    res.cookie("id", SHA256(dtNow).toString()), {
+        maxAge: 1000 * 60 * 60 * 24 * 30
+    };
+    next();
+};
 
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname));
+app.use(cookie);
 
-/*
-app.use("/", (req, res) => {
-    console.log("setting cookie");
-    res.cookie("id", SHA256(req.ip).toString()), {
-        maxAge: 1000 * 60 * 60 * 24 * 30
-    };
-});
-*/
 
-app.get("/", (req, res, next) => {
+app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "index.html"));
 });
 
 
 app.get("/getRandConfession", (req, res) => {
-    db.getDB().collection(collection).aggregate([{$sample : {size : 1}}]).toArray((err, documents) => {
+    db.getDB().collection(collection).aggregate( [{$sample : {size : 1}}] ).toArray((err, documents) => {
+        if (err)
+            console.log(err);
+        else
+            res.json(documents);
+    });
+});
+
+
+app.get("/ifConfExists/:id", (req, res) => {
+    db.getDB().collection(collection).findOne({id: req.params.id}, (err, documents) => {
         if (err)
             console.log(err);
         else
