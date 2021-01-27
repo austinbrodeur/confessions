@@ -6,7 +6,7 @@ $(() => {
     const confessMessage = $("#confessMessage");
     const confessSound = document.getElementById('sound');
     
-    
+
     const resetConfessionsInput = () => {
         confessionInput.val('');
         confessionInput.prop("readonly", true);
@@ -82,5 +82,9 @@ $(() => {
         getConfession();
     });
 
-
+    const checkCookie = () => {
+        fetch(`/ifConfExists/${document.cookie.split("=")[1]}`, {method : "get"}).then((response) => {
+            return response.json();
+        });
+    }
 });

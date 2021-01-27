@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname));
-app.use(cookie);
+//app.use(cookie);
 
 
 app.get("/", (req, res) => {
