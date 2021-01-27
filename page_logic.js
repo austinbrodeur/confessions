@@ -82,9 +82,14 @@ $(() => {
         getConfession();
     });
 
+
     const checkCookie = () => {
         fetch(`/ifConfExists/${document.cookie.split("=")[1]}`, {method : "get"}).then((response) => {
             return response.json();
+        }).then((data) => {
+            console.log(data);
         });
     }
+
+    checkCookie();
 });
