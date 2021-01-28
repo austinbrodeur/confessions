@@ -90,7 +90,6 @@ $(() => {
         getConfession();
     });
 
-
     if (document.cookie != null) {
         setState();
     }

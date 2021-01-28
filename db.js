@@ -1,7 +1,8 @@
 const MongoClient = require("mongodb").MongoClient;
 const ObjectID = require("mongodb").ObjectID;
 const dbname = "confession_site";
-const connectionString = "mongodb+srv://austinbrodeur:tway2598@cluster0.peiil.mongodb.net/confession_site?retryWrites=true&w=majority"
+const connectionString = "mongodb+srv://dbuser:dbpassword@cluster0.peiil.mongodb.net/confession_site?retryWrites=true&w=majority";
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
 const mongoOptions = {useNewUrlParser : true,
                     useUnifiedTopology: true};
 
@@ -24,12 +25,8 @@ const connect = (cb) => {
     }
 }
 
-const getPrimaryKey = (_id) => {
-    return ObjectID(_id);
-}
-
 const getDB = () => {
     return state.db;
 }
 
-module.exports = {getDB, connect, getPrimaryKey};
+module.exports = {getDB, connect};
