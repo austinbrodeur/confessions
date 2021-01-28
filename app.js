@@ -5,11 +5,15 @@ const app = express();
 const path = require("path");
 const db = require("./db");
 const SHA256 = require("crypto-js/sha256");
+const helmet = require("helmet");
+const compression = require("compression");
 const collection = "confessions";
 
 
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(compression());
+app.use(helmet());
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname));
 
