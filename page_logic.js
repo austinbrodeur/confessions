@@ -29,6 +29,7 @@ $(() => {
 
 
     const changeState = async () => {
+        getCookie();
         resetConfessionsInput();
         playSound();
         confessButton.fadeOut();
@@ -47,6 +48,13 @@ $(() => {
         confessButton.hide();
         nextButton.show();
         getConfession();
+    }
+
+
+    const getCookie = () => {
+        fetch("/getCookie", {method : "get"}).then((response) => {
+            return response;
+        });
     }
 
 
@@ -82,9 +90,8 @@ $(() => {
         getConfession();
     });
 
-    const checkCookie = () => {
-        fetch(`/ifConfExists/${document.cookie.split("=")[1]}`, {method : "get"}).then((response) => {
-            return response.json();
-        });
+
+    if (document.cookie != null) {
+        setState();
     }
 });

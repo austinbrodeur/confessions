@@ -1,28 +1,17 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const crypto = require("crypto-js");
 const app = express();
 const path = require("path");
 const db = require("./db");
-const { SHA256 } = require("crypto-js");
-const { param } = require("jquery");
+const SHA256 = require("crypto-js/sha256");
 const collection = "confessions";
 
-const cookie = (req, res, next) => {
-    const dtNow = new Date();
-    console.log(`Setting cookie to hash of ${dtNow.toString()}`);
-    res.cookie("id", SHA256(dtNow).toString()), {
-        maxAge: 1000 * 60 * 60 * 24 * 30
-    };
-    next();
-};
 
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname));
-//app.use(cookie);
 
 
 app.get("/", (req, res) => {
@@ -48,6 +37,16 @@ app.get("/ifConfExists/:id", (req, res) => {
             res.json(documents);
     });
 });
+
+
+app.get("/getCookie", (req, res) => {
+    res.clearCookie("id");
+    const date = new Date().toString();
+    const expires = 1000 * 60 * 60 * 24 * 30;
+
+    res.cookie("id", SHA256(date).toString(), {maxAge: expires}).send();
+})
+
 
 app.post('/', (req, res) => {
     const userInput = req.body;
