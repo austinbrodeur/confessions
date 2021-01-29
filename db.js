@@ -1,4 +1,5 @@
 const MongoClient = require("mongodb").MongoClient;
+const assert = require("assert");
 const dbname = "confession_site";
 const mongoDB = process.env.MONGODB_URI;
 
