@@ -45,7 +45,7 @@ $(() => {
         await sleep(3000);
         confessMessage.fadeOut();
         await sleep(500);
-        nextButton.fadeIn();
+        nextButton.show();
         getConfession();
         getCookie();
     }
