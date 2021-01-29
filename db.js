@@ -1,7 +1,7 @@
 const MongoClient = require("mongodb").MongoClient;
 const ObjectID = require("mongodb").ObjectID;
 const dbname = "confession_site";
-const connectionString = "mongodb+srv://austinbrodeur:Vptr4X7KmWhFiaNl@cluster0.peiil.mongodb.net/confession_site?retryWrites=true";
+const mongoDB = process.env.MONGODB_URI;
 const mongoOptions = {useNewUrlParser : true,
                     useUnifiedTopology: true};
 
@@ -13,7 +13,7 @@ const connect = (cb) => {
     if (state.db)
         cb();
     else {
-        MongoClient.connect(connectionString, mongoOptions, (err, client) => {
+        MongoClient.connect(mongoDB, mongoOptions, (err, client) => {
             if (err)
                 cb(err);
             else {
