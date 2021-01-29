@@ -1,17 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
 const app = express();
 const path = require("path");
 const db = require("./db");
-const SHA256 = require("crypto-js/sha256");
 const helmet = require("helmet");
 const compression = require("compression");
 const collection = "confessions";
 
 
 app.use(bodyParser.json());
-app.use(cookieParser());
 app.use(compression());
 app.use(helmet());
 app.use(express.static(__dirname + '/public'));
@@ -31,25 +28,6 @@ app.get("/getRandConfession", (req, res) => {
             res.json(documents);
     });
 });
-
-
-app.get("/ifConfExists/:id", (req, res) => {
-    db.getDB().collection(collection).findOne({id: req.params.id}, (err, documents) => {
-        if (err)
-            console.log(err);
-        else
-            res.json(documents);
-    });
-});
-
-
-app.get("/getCookie", (req, res) => {
-    res.clearCookie("id");
-    const date = new Date().toString();
-    const expires = 1000 * 60 * 60 * 24 * 30;
-
-    res.cookie("id", SHA256(date).toString(), {maxAge: expires}).send();
-})
 
 
 app.post('/', (req, res) => {

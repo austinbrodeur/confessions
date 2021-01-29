@@ -5,7 +5,15 @@ $(() => {
     const nextButton = $("#nextButton");
     const confessMessage = $("#confessMessage");
     const confessSound = document.getElementById('sound');
-    
+
+
+    const getConfession = () => {
+        fetch("/getRandConfession", {method : "get"}).then((response) => {
+            return response.json();
+        }).then((data) => {
+            displayConfession(data);
+        });
+    }
 
     const resetConfessionsInput = () => {
         confessionInput.val('');
@@ -29,7 +37,6 @@ $(() => {
 
 
     const changeState = async () => {
-        getCookie();
         resetConfessionsInput();
         playSound();
         confessButton.fadeOut();
@@ -38,32 +45,9 @@ $(() => {
         await sleep(3000);
         confessMessage.fadeOut();
         await sleep(500);
-        nextButton.fadeIn();
-        getConfession();
-    }
-
-
-    const setState = () => {
-        resetConfessionsInput();
-        confessButton.hide();
         nextButton.show();
         getConfession();
-    }
-
-
-    const getCookie = () => {
-        fetch("/getCookie", {method : "get"}).then((response) => {
-            return response;
-        });
-    }
-
-
-    const getConfession = () => {
-        fetch("/getRandConfession", {method : "get"}).then((response) => {
-            return response.json();
-        }).then((data) => {
-            displayConfession(data);
-        });
+        getCookie();
     }
 
     
@@ -73,8 +57,7 @@ $(() => {
         fetch("/", {
             method : "post",
             body : JSON.stringify({
-                confession : confessionInput.val(),
-                id : document.cookie.split("=")[1]
+                confession : confessionInput.val()
             }),
             headers : {
                 "Content-Type" : "application/json; charset=utf-8"
@@ -89,8 +72,4 @@ $(() => {
     nextButton.on("click", function() {
         getConfession();
     });
-
-    if (document.cookie != null) {
-        setState();
-    }
 });

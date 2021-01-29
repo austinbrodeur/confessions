@@ -7,9 +7,6 @@
   "private": "true",
   "description": "",
   "main": "app.js",
-  "scripts": {
-    "start": "node app"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/austinbrodeur/confessions.git"
