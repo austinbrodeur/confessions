@@ -1,7 +1,7 @@
 const MongoClient = require("mongodb").MongoClient;
 const ObjectID = require("mongodb").ObjectID;
 const dbname = "confession_site";
-const connectionString = process.env.MONGODB_URI;
+const connectionString = "mongodb+srv://austinbrodeur:Vptr4X7KmWhFiaNl@cluster0.peiil.mongodb.net/confession_site?retryWrites=true";
 const mongoOptions = {useNewUrlParser : true,
                     useUnifiedTopology: true};
 
