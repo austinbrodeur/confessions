@@ -1,18 +1,31 @@
 const MongoClient = require("mongodb").MongoClient;
-const assert = require("assert");
+const ObjectID = require("mongodb").ObjectID;
 const dbname = "confession_site";
 const mongoDB = process.env.MONGODB_URI;
+const mongoOptions = {useNewUrlParser : true,
+                    useUnifiedTopology: true};
 
+const state = {
+    db : null
+};
 
-const connect = () => {
-    MongoClient.connect(mongoDB, function(err, client){
-        assert.equal(null, err);
-        console.log("Connected to database.");
-
-        const db = client.db(dbname);
-        client.close();
-    });
+const connect = (cb) => {
+    if (state.db)
+        cb();
+    else {
+        MongoClient.connect(mongoDB, mongoOptions, (err, client) => {
+            if (err)
+                cb(err);
+            else {
+                state.db = client.db(dbname);
+                cb();
+            }
+        });
+    }
 }
 
+const getDB = () => {
+    return state.db;
+}
 
-module.exports = {connect};
+module.exports = {getDB, connect};
