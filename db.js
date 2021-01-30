@@ -1,5 +1,4 @@
 const MongoClient = require("mongodb").MongoClient;
-const ObjectID = require("mongodb").ObjectID;
 const dbname = "confession_site";
 const mongoDB = process.env.MONGODB_URI;
 const mongoOptions = {useNewUrlParser : true,
