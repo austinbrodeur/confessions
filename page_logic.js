@@ -47,7 +47,6 @@ $(() => {
         await sleep(500);
         nextButton.show();
         getConfession();
-        getCookie();
     }
 
     

@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/austinbrodeur/confessions#readme",
   "dependencies": {
+    "@node-minify/core": "^6.2.0",
+    "@node-minify/google-closure-compiler": "^6.2.0",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "crypto-js": "^4.0.0",
