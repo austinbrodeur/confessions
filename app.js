@@ -4,6 +4,8 @@ const app = express();
 const path = require("path");
 const db = require("./db");
 const helmet = require("helmet");
+const minify = require("@node-minify/core");
+const gcc = require("@node-minify/google-closure-compiler");
 const compression = require("compression");
 const collection = "confessions";
 
@@ -13,6 +15,14 @@ app.use(compression());
 app.use(helmet());
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname));
+
+
+minify({
+    compressor: gcc,
+    input: 'page_logic.js',
+    output: 'pl.js',
+    callback: function(err, min) {}
+});
 
 
 app.get("/", (req, res) => {
